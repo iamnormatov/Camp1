@@ -1,0 +1,72 @@
+
+
+<% if current_user %>
+     <div class="bg"></div>
+     <div class="bg bg2"></div>
+     <div class="bg bg3"></div>
+
+
+<header>
+    <nav class="navbar">
+        <div class="navbar-container container">
+            <div class="hamburger-lines">
+                <span class="line line1"></span>
+                <span class="line line2"></span>
+                <span class="line line3"></span>
+            </div>
+            <ul class="menu-items">
+                <li> <a href="/projects/new">New project</a></li>
+                <li><%= link_to "Edit Account", edit_user_registration_path, class:"nav-link" %></li>
+                <li><%= link_to('Logout', destroy_user_session_path, 'data-turbo-method': :delete) %></li>
+            </ul>
+            <h1 class="logo"><p>Hello  <%= current_user.username %></h1>
+    </nav>   
+</header>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+ 
+     
+
+<ul class="cards">
+<% @posts.each do |post| %>
+
+  <% if post.user == current_user %>
+    
+     
+<body class="body">
+ <li class="cards__item">
+    <div class="card">
+      <div class="card__image card__image--record"></div>
+      <div class="card__content">
+        <div class="card__title"><%= post.name %></div>
+        <p class="card__text"><%= post.description %></p>
+            <%= button_to 'Remove',  project_path(post), method: 'delete', data: { confirm: 'Are you sure?' },class:"btn btn--block card__btn" %> <br>
+            <%= button_to 'Edit', edit_project_path(post), method: 'get', class:"btn-2 btn--block card__btn"%> 
+      </div>
+    </div>
+  </li>
+
+
+      <% end %>
+<% end %>
+ 
+</ul>
+   </body>
+
+
+         <% else %>
+
+     <div class="bg"></div>
+     <div class="bg bg2"></div>
+     <div class="bg bg3"></div>
+     <div class="content">
+   <%= link_to "Sign Up!", new_user_registration_path, class: "login-sign" %>
+   
+     <%= link_to "Login", new_user_session_path, class: "login-sign" %>
+</div>
+     <% end %>
+
